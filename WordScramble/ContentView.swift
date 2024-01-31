@@ -64,6 +64,12 @@ struct ContentView: View {
             wordError(title: "Word not recognized", message: "You can't just make them up, you know!")
             return
         }
+        
+        guard isStartOrShort(word: answer) else {
+            wordError(title: "Word ia shorter than 3 letter or equal a start word", message: "Find another word!")
+            return
+        }
+        
             
         withAnimation {
             useWords.insert(answer, at: 0)
@@ -114,6 +120,10 @@ struct ContentView: View {
         let misspeledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
         
         return misspeledRange.location == NSNotFound
+    }
+    
+    func isStartOrShort(word: String) -> Bool {
+        !(word.count < 3 || word == rootWord)
     }
     
     func wordError(title: String, message: String) {
