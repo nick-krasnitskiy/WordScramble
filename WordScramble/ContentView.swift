@@ -39,6 +39,9 @@ struct ContentView: View {
             .alert(errorTitle, isPresented: $showingError) {} message: {
                 Text(errorMessage)
             }
+            .toolbar {
+                Button("Restart", action: restart)
+            }
         }
     }
     
@@ -126,6 +129,11 @@ struct ContentView: View {
     
     func isLong(word: String) -> Bool {
         !(word.count < 3 || word == rootWord)
+    }
+    
+    func restart() {
+        usedWords = [String]()
+        startGame()
     }
     
     func wordError(title: String, message: String) {
